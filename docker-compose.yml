@@ -1,0 +1,50 @@
+version: '2'
+services:
+
+  db:
+      image: mariadb:10.3
+      container_name: lemp_mariadb
+      restart: always
+      volumes:
+        - ./sharevolume/mysql:/var/lib/mysql
+      ports:
+        - 3306:3306
+      environment:
+        - MYSQL_ROOT_PASSWORD=1234
+  php:
+      build: ./php/
+      container_name: lemp_php-fpm
+      restart: always
+      volumes:
+        - ./sharevolume/public_html:/var/www/html
+      expose:
+        - "9000"
+  nginx:
+      image: nginx:alpine
+      container_name: lemp_nginx
+      restart: always
+      volumes:
+        - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+        - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      volumes_from:
+        - php
+      ports:
+        - 80:80
+  pma:
+      image: phpmyadmin/phpmyadmin
+      container_name: lemp-phpmyadmin
+      restart: always
+      ports:
+        - 8000:80
+      links:
+        - db
+  tomcat:
+      build: ./tomcat
+      container_name: tomcat_9
+      restart: always
+      volumes:
+        - ./tomcat/webapps/data/uploads:/usr/local/tomcat/webapps/data/uploads
+      ports:
+        - 8080:8080
+      links:
+        - db    
