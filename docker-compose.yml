@@ -38,7 +38,7 @@ services:
         - 8000:80
       links:
         - db
-tomcat:
+  tomcat:
       build: ./tomcat
       container_name: tomcat_9
       restart: always
