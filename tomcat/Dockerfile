@@ -1,4 +1,4 @@
-FROM tomcat:9.0.13-jre8
+FROM tomcat:9.0.14-jre8
 
 ADD tomcat-users.xml /usr/local/tomcat/conf/
 
