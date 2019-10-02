@@ -43,6 +43,7 @@ services:
       container_name: tomcat_9
       restart: always
       volumes:
+        - ./sharevolume/image_store:/root/image_store
         - ./tomcat/webapps/data/uploads:/usr/local/tomcat/webapps/data/uploads
       ports:
         - 8080:8080
