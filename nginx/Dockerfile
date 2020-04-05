@@ -1,3 +1,6 @@
 FROM nginx:latest
 
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+USER root
+
+COPY ./conf/nginx.conf /etc/nginx/conf/nginx.conf
+COPY ./conf.d /etc/nginx/conf.d
